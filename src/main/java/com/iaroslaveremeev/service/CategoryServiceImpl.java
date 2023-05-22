@@ -1,13 +1,10 @@
 package com.iaroslaveremeev.service;
 
-import com.iaroslaveremeev.model.Card;
 import com.iaroslaveremeev.model.Category;
-import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,18 +56,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Category get(long categoryId) {
         return this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category with this id does not exist"));
-    }
-
-    /**
-     * Retrieves the user associated with a specific category from the repository.
-     *
-     * @param categoryId The ID of the category.
-     * @return The user associated with the specified category.
-     */
-    @Override
-    public User getUser(long categoryId) {
-        Category category = this.categoryRepository.getById(categoryId);
-        return category.getUser();
     }
 
     /**

@@ -1,8 +1,6 @@
 package com.iaroslaveremeev.service;
 
-import com.iaroslaveremeev.model.Answer;
 import com.iaroslaveremeev.model.Card;
-import com.iaroslaveremeev.model.Category;
 import com.iaroslaveremeev.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,18 +57,6 @@ public class CardServiceImpl implements CardService {
     public Card get(long id) {
         return this.cardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Card with this id does not exist"));
-    }
-
-    /**
-     * Retrieves the card category.
-     *
-     * @param cardId The ID of the card.
-     * @return The category associated with the card.
-     */
-    @Override
-    public Category getCategory(long cardId) {
-        Card card = this.cardRepository.getById(cardId);
-        return card.getCategory();
     }
 
     /**
