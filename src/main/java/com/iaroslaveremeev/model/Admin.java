@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "admins", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
+@Table(name = "admins", uniqueConstraints = {@UniqueConstraint(columnNames = {"login", "email"})})
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Admin extends User {

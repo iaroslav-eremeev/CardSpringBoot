@@ -14,7 +14,7 @@ import java.util.List;
  * User may choose category of a newly-created question
  */
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login", "email"})})
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor

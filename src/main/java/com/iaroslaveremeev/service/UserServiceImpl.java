@@ -1,6 +1,11 @@
 package com.iaroslaveremeev.service;
 
+import com.iaroslaveremeev.model.Card;
+import com.iaroslaveremeev.model.Category;
 import com.iaroslaveremeev.model.User;
+import com.iaroslaveremeev.repository.AnswerRepository;
+import com.iaroslaveremeev.repository.CardRepository;
+import com.iaroslaveremeev.repository.CategoryRepository;
 import com.iaroslaveremeev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +19,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     /**
-     * Setter method called by the Spring framework
-     * to inject the UserRepository instance.
+     * Setter methods called by the Spring framework
+     * to inject all the Repository instances.
      */
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -74,35 +79,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository.deleteById(id);
         return user;
     }
-
-    /**
-     * Updates the details of a user in the repository.
-     *
-     * @param user The updated user.
-     * @return The updated user.
-     * @throws IllegalArgumentException
-     * If one or more parameters are invalid or
-     * if a user with the same parameters already exists.
-     */
-    @Override
-    public User update(User user) {
-        if (user.getName().length() == 0 || user.getLogin().length() == 0 ||
-                user.getPassword().length == 0) {
-            throw new IllegalArgumentException("One or more parameters are invalid");
-        }
-        User baseUser = this.get(user.getId());
-        baseUser.setName(user.getName());
-        baseUser.setLogin(user.getLogin());
-        baseUser.setPassword(user.getPassword());
-        baseUser.setRegDate(user.getRegDate());
-        try {
-            this.userRepository.save(baseUser);
-            return baseUser;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("User with such parameters already exists!");
-        }
-    }
-
     /**
      * Retrieves a list of users by first name from the repository.
      *
