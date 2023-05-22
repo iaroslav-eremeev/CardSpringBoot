@@ -19,13 +19,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User getUserByEmail(String email);
     User getUserByLogin(String login);
     @Modifying
-    @Query("update User user set user.login=:newLogin")
-    void updateUserLogin(@Param("login") String newLogin);
+    @Query("update User user set user.login=:login")
+    void updateUserLogin(@Param("login") String login);
     @Modifying
-    @Query("update User user set user.email=:newEmail")
-    void updateUserEmail(@Param("email") String newEmail);
+    @Query("update User user set user.email=:email")
+    void updateUserEmail(@Param("email") String email);
     @Modifying
-    @Query("update User user set user.name=:newName")
-    void updateUserName(@Param("name") String newName);
+    @Query("update User user set user.name=:name")
+    void updateUserName(@Param("name") String name);
+    @Modifying
+    @Query("update User user set user.role=:role")
+    void updateUserRole(@Param("role") Role role);
 
 }

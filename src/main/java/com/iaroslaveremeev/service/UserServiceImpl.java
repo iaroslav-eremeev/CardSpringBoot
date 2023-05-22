@@ -85,7 +85,6 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByName(String name) {
         return this.userRepository.getUsersByName(name);
     }
-
     /**
      * Retrieves a list of users by date of their registration from the repository.
      *
@@ -94,36 +93,78 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getUsersByRegDate(Date regDate) {
-        return this.userRepository.getUsersByRegDate(regDate);
+        return null;
     }
-
+    /**
+     * Retrieves a list of users by their role from the repository.
+     *
+     * @param role The role of the users.
+     * @return A list of users with the specified role.
+     */
     @Override
     public List<User> getUsersByRole(Role role) {
         return this.userRepository.getUsersByRole(role);
     }
 
+    /**
+     * Retrieves a user by their email from the repository.
+     *
+     * @param email The email of the user.
+     * @return The user with the specified email.
+     */
     @Override
     public User getUserByEmail(String email) {
         return this.userRepository.getUserByEmail(email);
     }
 
+    /**
+     * Retrieves a user by their login from the repository.
+     *
+     * @param login The login of the user.
+     * @return The user with the specified login.
+     */
     @Override
     public User getUserByLogin(String login) {
         return this.userRepository.getUserByLogin(login);
     }
 
+    /**
+     * Updates the login of the current user.
+     *
+     * @param newLogin The new login value.
+     */
     @Override
     public void updateUserLogin(String newLogin) {
         this.userRepository.updateUserLogin(newLogin);
     }
 
+    /**
+     * Updates the email of the current user.
+     *
+     * @param newEmail The new email value.
+     */
     @Override
     public void updateUserEmail(String newEmail) {
         this.userRepository.updateUserEmail(newEmail);
     }
 
+    /**
+     * Updates the first name of the current user.
+     *
+     * @param newName The new name value.
+     */
     @Override
     public void updateUserName(String newName) {
         this.userRepository.updateUserName(newName);
+    }
+
+    /**
+     * Updates the role (SIMPLE, MODERATOR or ADMIN) of the current user.
+     *
+     * @param newRole The new Role value.
+     */
+    @Override
+    public void updateUserRole(Role newRole) {
+        this.userRepository.updateUserRole(newRole);
     }
 }

@@ -19,4 +19,5 @@ public interface UserService {
     void updateUserLogin(String newLogin);
     void updateUserEmail(String newEmail);
     void updateUserName(String newName);
+    void updateUserRole(Role role);
 }
