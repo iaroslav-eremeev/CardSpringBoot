@@ -1,11 +1,7 @@
 package com.iaroslaveremeev.service;
 
-import com.iaroslaveremeev.model.Answer;
-import com.iaroslaveremeev.model.Card;
+import com.iaroslaveremeev.model.Role;
 import com.iaroslaveremeev.model.User;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +13,7 @@ public interface UserService {
     User delete(long id);
     List<User> getUsersByName(String name);
     List<User> getUsersByRegDate(Date regDate);
+    List<User> getUsersByRole(Role role);
     User getUserByEmail(String email);
     User getUserByLogin(String login);
     void updateUserLogin(String newLogin);

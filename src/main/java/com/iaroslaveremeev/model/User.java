@@ -2,7 +2,6 @@ package com.iaroslaveremeev.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,9 +29,11 @@ public class User {
     @NonNull
     private String name; // User first name
     @NonNull
-    private String email; // User email
+    private String email; // User email - must be unique
     @NonNull
     private Date regDate = new Date(); // Date of registration - created at the moment of Object instantiation
+    @NonNull
+    private Role role = Role.SIMPLE;
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

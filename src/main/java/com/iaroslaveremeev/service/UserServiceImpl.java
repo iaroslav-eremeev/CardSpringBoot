@@ -1,11 +1,7 @@
 package com.iaroslaveremeev.service;
 
-import com.iaroslaveremeev.model.Card;
-import com.iaroslaveremeev.model.Category;
+import com.iaroslaveremeev.model.Role;
 import com.iaroslaveremeev.model.User;
-import com.iaroslaveremeev.repository.AnswerRepository;
-import com.iaroslaveremeev.repository.CardRepository;
-import com.iaroslaveremeev.repository.CategoryRepository;
 import com.iaroslaveremeev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,6 +95,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByRegDate(Date regDate) {
         return this.userRepository.getUsersByRegDate(regDate);
+    }
+
+    @Override
+    public List<User> getUsersByRole(Role role) {
+        return this.userRepository.getUsersByRole(role);
     }
 
     @Override
