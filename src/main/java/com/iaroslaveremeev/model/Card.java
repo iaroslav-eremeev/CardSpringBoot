@@ -26,7 +26,6 @@ public class Card {
     private int id;
     @NonNull
     private String question; // Question made by User
-    @NonNull
     private String answer; // Answer to the question
     @ManyToOne
     @JsonIgnore

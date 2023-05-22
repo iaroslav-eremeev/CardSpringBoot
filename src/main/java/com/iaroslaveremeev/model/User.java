@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * User can ask questions via the application and get answers.
- * They choose categories of questions and ask questions
+ * User can ask questions and get answers. User can also give answers to other users
+ * User may choose category of a newly-created question
  */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
@@ -30,13 +30,13 @@ public class User {
     @NonNull
     private String name; // User first name
     @NonNull
+    private String email; // User email
+    @NonNull
     private Date regDate = new Date(); // Date of registration - created at the moment of Object instantiation
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    // If a User is deleted, associated Categories and Cards are also deleted
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private List<Category> categoryList = new ArrayList<>(); // List of question categories that user chose to play
+    private List<Category> categoryList = new ArrayList<>(); // List of question categories that user chose for themselves
 
 }
 

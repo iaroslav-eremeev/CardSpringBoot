@@ -32,7 +32,5 @@ public class Category {
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    // If a Category is deleted, associated Cards are also deleted
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<Card> cardList = new ArrayList<>(); // List of question cards in this category
 }
