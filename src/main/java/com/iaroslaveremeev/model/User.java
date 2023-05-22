@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * User can ask questions via the application and get answers.
+ * They choose categories of questions and ask questions
+ */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
 @Data
@@ -20,18 +24,19 @@ public class User {
     @Column(name = "id")
     private int id;
     @NonNull
-    private String login;
+    private String login; // User login - must be unique
     @NonNull
-    private String password;
+    private char[] password; // User password
     @NonNull
-    private String name;
+    private String name; // User first name
     @NonNull
-    private Date regDate = new Date();
+    private Date regDate = new Date(); // Date of registration - created at the moment of Object instantiation
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    // If a User is deleted, associated Categories and Cards are also deleted
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private List<Category> categoryList = new ArrayList<>();
+    private List<Category> categoryList = new ArrayList<>(); // List of question categories that user chose to play
 
 }
 

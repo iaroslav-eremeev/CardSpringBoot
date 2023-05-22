@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Category is the area to which the user questions belong
+ */
 @Entity
 @Table(name = "categories")
 @Data
@@ -20,15 +23,16 @@ public class Category {
     @Column(name = "id")
     private int id;
     @NonNull
-    private String name;
+    private String name; // Category name - not unique because different users may choose same categories
     @NonNull
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user; // User who chose the question category
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    // If a Category is deleted, associated Cards are also deleted
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private List<Card> cardList = new ArrayList<>();
+    private List<Card> cardList = new ArrayList<>(); // List of question cards in this category
 }
