@@ -38,5 +38,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Category> categoryList = new ArrayList<>(); // List of question categories that user chose for themselves
 
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Answer> answerList = new ArrayList<>(); // List of answers that User provided
 }
 
