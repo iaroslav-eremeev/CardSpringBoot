@@ -7,6 +7,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -26,7 +28,8 @@ public class Card {
     private int id;
     @NonNull
     private String question; // Question made by User
-    private String answer; // Answer to the question
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private List<Answer> cardAnswers = new ArrayList<>(); // Answers to the question
     @ManyToOne
     @JsonIgnore
     @NonNull
