@@ -10,7 +10,6 @@ public interface CategoryService {
     void addCategory(Category category);
     List<Category> get();
     Category get(long categoryId);
-    List<Card> getCardList(long categoryId);
     User getUser(long categoryId);
     Category delete(long categoryId);
     List<Category> getCategoriesByName(String name);

@@ -62,18 +62,6 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * Retrieves the list of answers associated with a card.
-     *
-     * @param cardId The ID of the card.
-     * @return The list of answers associated with the card.
-     */
-    @Override
-    public List<Answer> getCardAnswers(long cardId) {
-        Card card = this.cardRepository.getById(cardId);
-        return card.getCardAnswers();
-    }
-
-    /**
      * Retrieves the card category.
      *
      * @param cardId The ID of the card.
@@ -111,13 +99,24 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * Retrieves a list of cards by first name from the repository.
+     * Retrieves a list of cards by date of creation.
      *
-     * @param date The first name of the card.
-     * @return A list of cards with the specified first name.
+     * @param date The card creation date.
+     * @return A list of cards with the specified creation date.
      */
     @Override
     public List<Card> getCardsByCreationDate(Date date) {
         return this.cardRepository.getCardsByCreationDate(date);
+    }
+
+    /**
+     * Retrieves a list of cards by category ID.
+     *
+     * @param categoryId The ID of the card category.
+     * @return A list of cards with the specified category ID.
+     */
+    @Override
+    public List<Card> getCardsByCategoryId(long categoryId) {
+        return this.cardRepository.getCardsByCategoryId(categoryId);
     }
 }

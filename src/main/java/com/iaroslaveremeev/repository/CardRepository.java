@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
     List<Card> getCardsByCreationDate(Date date);
+    List<Card> getCardsByCategoryId(long categoryId);
     @Modifying
     @Query("update Card card set card.question=:question")
     void updateQuestion(String question);

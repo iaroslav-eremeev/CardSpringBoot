@@ -62,18 +62,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * Retrieves a list of cards associated with a specific category from the repository.
-     *
-     * @param categoryId The ID of the category.
-     * @return A list of cards associated with the specified category.
-     */
-    @Override
-    public List<Card> getCardList(long categoryId) {
-        Category category = this.categoryRepository.getById(categoryId);
-        return category.getCardList();
-    }
-
-    /**
      * Retrieves the user associated with a specific category from the repository.
      *
      * @param categoryId The ID of the category.

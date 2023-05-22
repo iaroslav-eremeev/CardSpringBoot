@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> getUsersByRegDate(Date regDate) {
-        return null;
+        return this.userRepository.getUsersByRegDate(regDate);
     }
     /**
      * Retrieves a list of users by their role from the repository.
