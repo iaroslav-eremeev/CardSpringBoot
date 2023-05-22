@@ -100,4 +100,29 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByRegDate(Date regDate) {
         return this.userRepository.getUsersByRegDate(regDate);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return this.userRepository.getUserByEmail(email);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return this.userRepository.getUserByLogin(login);
+    }
+
+    @Override
+    public void updateUserLogin(String newLogin) {
+        this.userRepository.updateUserLogin(newLogin);
+    }
+
+    @Override
+    public void updateUserEmail(String newEmail) {
+        this.userRepository.updateUserEmail(newEmail);
+    }
+
+    @Override
+    public void updateUserName(String newName) {
+        this.userRepository.updateUserName(newName);
+    }
 }
