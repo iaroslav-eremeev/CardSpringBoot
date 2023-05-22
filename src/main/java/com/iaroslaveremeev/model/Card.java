@@ -25,7 +25,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @NonNull
     private String question; // Question made by User
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
