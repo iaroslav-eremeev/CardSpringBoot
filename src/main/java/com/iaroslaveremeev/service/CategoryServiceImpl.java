@@ -19,6 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void setCategoryRepository(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
+
     /**
      * Adds a new category to the repository.
      *

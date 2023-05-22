@@ -20,6 +20,7 @@ public class CardServiceImpl implements CardService {
     public void setCardRepository(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
+
     /**
      * Adds a new card to the repository.
      *

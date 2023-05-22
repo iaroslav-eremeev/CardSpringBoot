@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     /**
      * Adds a new user to the repository.
      *
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository.deleteById(id);
         return user;
     }
+
     /**
      * Retrieves a list of users by first name from the repository.
      *
@@ -85,6 +87,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByName(String name) {
         return this.userRepository.getUsersByName(name);
     }
+
     /**
      * Retrieves a list of users by date of their registration from the repository.
      *
