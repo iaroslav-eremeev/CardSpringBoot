@@ -1,6 +1,8 @@
 package com.iaroslaveremeev.service;
 
+import com.iaroslaveremeev.model.Answer;
 import com.iaroslaveremeev.model.Card;
+import com.iaroslaveremeev.model.Category;
 import com.iaroslaveremeev.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,30 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
+     * Retrieves the list of answers associated with a card.
+     *
+     * @param cardId The ID of the card.
+     * @return The list of answers associated with the card.
+     */
+    @Override
+    public List<Answer> getCardAnswers(long cardId) {
+        Card card = this.cardRepository.getById(cardId);
+        return card.getCardAnswers();
+    }
+
+    /**
+     * Retrieves the card category.
+     *
+     * @param cardId The ID of the card.
+     * @return The category associated with the card.
+     */
+    @Override
+    public Category getCategory(long cardId) {
+        Card card = this.cardRepository.getById(cardId);
+        return card.getCategory();
+    }
+
+    /**
      * Deletes a card by its ID from the repository.
      *
      * @param id The ID of the card to be deleted.
@@ -75,29 +101,13 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * Updates the details of a card in the repository.
+     * Updates the question of a card.
      *
-     * @param card The updated card.
-     * @return The updated card.
-     * @throws IllegalArgumentException
-     * If one or more parameters are invalid or
-     * if a card with the same parameters already exists.
+     * @param question The new question for the card.
      */
     @Override
-    public Card update(Card card) {
-        if (card.getQuestion().length() == 0)  {
-            throw new IllegalArgumentException("Parameters are invalid");
-        }
-        Card baseCard = this.get(card.getId());
-        baseCard.setQuestion(card.getQuestion());
-        baseCard.setAnswer(card.getAnswer());
-        baseCard.setCreationDate(card.getCreationDate());
-        try {
-            this.cardRepository.save(baseCard);
-            return baseCard;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Card with such parameters already exists!");
-        }
+    public void updateQuestion(String question) {
+        this.cardRepository.updateQuestion(question);
     }
 
     /**

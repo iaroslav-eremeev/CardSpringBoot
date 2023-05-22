@@ -69,7 +69,8 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<Card> getCardList(long categoryId) {
-        return this.categoryRepository.getById(categoryId).getCardList();
+        Category category = this.categoryRepository.getById(categoryId);
+        return category.getCardList();
     }
 
     /**
@@ -80,7 +81,8 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public User getUser(long categoryId) {
-        return this.categoryRepository.getById(categoryId).getUser();
+        Category category = this.categoryRepository.getById(categoryId);
+        return category.getUser();
     }
 
     /**
