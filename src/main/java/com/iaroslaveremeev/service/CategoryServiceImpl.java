@@ -1,6 +1,8 @@
 package com.iaroslaveremeev.service;
 
+import com.iaroslaveremeev.model.Card;
 import com.iaroslaveremeev.model.Category;
+import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,29 +50,51 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * Retrieves a category by their ID from the repository.
      *
-     * @param id The category ID.
+     * @param categoryId The category ID.
      * @return The category with the specified ID.
      * @throws IllegalArgumentException
      * If the category with the specified ID does not exist.
      */
     @Override
-    public Category get(long id) {
-        return this.categoryRepository.findById(id)
+    public Category get(long categoryId) {
+        return this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category with this id does not exist"));
+    }
+
+    /**
+     * Retrieves a list of cards associated with a specific category from the repository.
+     *
+     * @param categoryId The ID of the category.
+     * @return A list of cards associated with the specified category.
+     */
+    @Override
+    public List<Card> getCardList(long categoryId) {
+        return this.categoryRepository.getById(categoryId).getCardList();
+    }
+
+    /**
+     * Retrieves the user associated with a specific category from the repository.
+     *
+     * @param categoryId The ID of the category.
+     * @return The user associated with the specified category.
+     */
+    @Override
+    public User getUser(long categoryId) {
+        return this.categoryRepository.getById(categoryId).getUser();
     }
 
     /**
      * Deletes a category by its ID from the repository.
      *
-     * @param id The ID of the category to be deleted.
+     * @param categoryId The ID of the category to be deleted.
      * @return The deleted category.
      * @throws IllegalArgumentException
      * If the category with the specified ID does not exist.
      */
     @Override
-    public Category delete(long id) {
-        Category category = this.get(id);
-        this.categoryRepository.deleteById(id);
+    public Category delete(long categoryId) {
+        Category category = this.get(categoryId);
+        this.categoryRepository.deleteById(categoryId);
         return category;
     }
 
