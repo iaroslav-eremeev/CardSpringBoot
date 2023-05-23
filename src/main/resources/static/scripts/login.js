@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#goToSignUpButton').click(function () {
             window.location.href = "registration.html";
     });
@@ -13,6 +14,7 @@ $(document).ready(function () {
                     window.location.href = "index.html";
                 },
                 error: function(xhr, status, error) {
+                    console.log("Error occurred: ", error);
                     alert(xhr.responseText);
                 }
             })

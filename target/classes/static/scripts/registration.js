@@ -5,7 +5,6 @@ $(document).ready(function () {
     });
 
     $('#signUpButton').click(function (event) {
-        console.log("Sign up button clicked!");
         event.preventDefault();
         const login = $('#login').val();
         const name = $('#name').val();
@@ -21,7 +20,7 @@ $(document).ready(function () {
                 "email": email
             },
             success: function (user) {
-                alert("Registration successful!");
+                $('.popup-fade').fadeIn();
             },
             error: function (xhr, status, error) {
                 console.log("Error occurred: ", error);
@@ -29,5 +28,10 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#okButton').click(function () {
+        $('.popup-fade').fadeOut();
+        window.location.href = "login.html";
+    })
 
 });
