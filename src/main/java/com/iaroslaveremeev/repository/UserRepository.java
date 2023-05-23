@@ -18,6 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> getUsersByRole(Role role);
     User getUserByEmail(String email);
     User getUserByLogin(String login);
+    User getUserByHash(String hash);
     @Modifying
     @Query("update User user set user.login=:login")
     void updateUserLogin(@Param("login") String login);

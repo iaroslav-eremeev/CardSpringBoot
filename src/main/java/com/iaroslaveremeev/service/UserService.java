@@ -16,6 +16,7 @@ public interface UserService {
     List<User> getUsersByRole(Role role);
     User getUserByEmail(String email);
     User getUserByLogin(String login);
+    User getUserByHash(String hash);
     void updateUserLogin(String newLogin);
     void updateUserEmail(String newEmail);
     void updateUserName(String newName);

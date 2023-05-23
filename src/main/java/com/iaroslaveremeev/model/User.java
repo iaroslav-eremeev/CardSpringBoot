@@ -43,5 +43,7 @@ public class User {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Answer> answerList = new ArrayList<>(); // List of answers that User provided
+
+    String hash;
 }
 

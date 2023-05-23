@@ -132,6 +132,17 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Retrieves a user by their hash code
+     *
+     * @param hash The user hash code.
+     * @return The user with the specified hash code.
+     */
+    @Override
+    public User getUserByHash(String hash) {
+        return this.userRepository.getUserByHash(hash);
+    }
+
+    /**
      * Updates the login of the current user.
      *
      * @param newLogin The new login value.
