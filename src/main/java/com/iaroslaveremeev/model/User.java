@@ -44,6 +44,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Answer> answerList = new ArrayList<>(); // List of answers that User provided
 
+    @ToString.Exclude
+    @JsonIgnore
     String hash;
 }
 

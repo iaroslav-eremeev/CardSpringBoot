@@ -5,9 +5,16 @@ import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -180,5 +187,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserRole(Role newRole) {
         this.userRepository.updateUserRole(newRole);
+    }
+
+    @Override
+    public boolean checkLogin(String login, char[] password) {
+        User user = userRepository.getUserByLogin(login);
+        if (user != null && Arrays.equals(user.getPassword(), password)) {
+            // Generate hash for the user
+            String hash = DigestUtils.md5DigestAsHex((login + user.getPassword()).getBytes());
+            // Create cookies
+            Cookie hashCookie = new Cookie("hash", hash);
+            Cookie userIdCookie = new Cookie("userId", String.valueOf(user.getId()));
+            Cookie roleCookie = new Cookie("role", user.getRole().name());
+            // Set cookie properties
+            hashCookie.setMaxAge(24 * 60 * 60);
+            userIdCookie.setMaxAge(24 * 60 * 60);
+            roleCookie.setMaxAge(24 * 60 * 60);
+            // Add cookies to the response
+            HttpServletResponse response = ((ServletRequestAttributes)
+                    Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+                    .getResponse();
+            assert response != null;
+            response.addCookie(hashCookie);
+            response.addCookie(userIdCookie);
+            response.addCookie(roleCookie);
+            // Clear the password array to remove sensitive information
+            Arrays.fill(password, ' ');
+            return true; // Login is valid
+        }
+        // Clear the password array even if the login is invalid
+        Arrays.fill(password, ' ');
+        return false; // Login is invalid
     }
 }

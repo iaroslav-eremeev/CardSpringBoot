@@ -21,4 +21,5 @@ public interface UserService {
     void updateUserEmail(String newEmail);
     void updateUserName(String newName);
     void updateUserRole(Role role);
+    boolean checkLogin(String login, char[] password);
 }
