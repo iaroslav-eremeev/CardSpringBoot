@@ -1,6 +1,10 @@
 package com.iaroslaveremeev.filter;
 
 import com.iaroslaveremeev.model.User;
+import com.iaroslaveremeev.repository.AnswerRepository;
+import com.iaroslaveremeev.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,15 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 @WebFilter(value = "/*", asyncSupported = true)
 public class AuthorizationFilter implements Filter {
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -46,7 +58,7 @@ public class AuthorizationFilter implements Filter {
         boolean registerRequest = request.getRequestURI().contains(registerURI);
         // If the request came from the login page or the session is not empty, we proceed further
         if (request.getRequestURI().endsWith("js") || loginRequest || registerRequest
-                || (value != null && DAO.getObjectByParam("hash", value, User.class) != null)) {
+                || (value != null && this.userRepository.getUserByHash(value) != null)) {
             filterChain.doFilter(request, response);
             // If not redirect to login page
         } else {
@@ -55,7 +67,5 @@ public class AuthorizationFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

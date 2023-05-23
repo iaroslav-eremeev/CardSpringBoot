@@ -2,7 +2,6 @@ package com.iaroslaveremeev.service;
 
 import com.iaroslaveremeev.model.Answer;
 import com.iaroslaveremeev.repository.AnswerRepository;
-import com.iaroslaveremeev.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
