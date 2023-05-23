@@ -5,37 +5,29 @@ $(document).ready(function () {
     });
 
     $('#signUpButton').click(function (event) {
+        console.log("Sign up button clicked!");
         event.preventDefault();
         const login = $('#login').val();
         const name = $('#name').val();
         const email = $('#email').val();
         const password = $('#password').val();
-        var user = {
-            "login": login,
-            "password": password,
-            "name": name,
-            "email": email
-        };
         $.ajax({
             url: '/user/add',
             type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify(user),
+            data: {
+                "login": login,
+                "password": password,
+                "name": name,
+                "email": email
+            },
             success: function (user) {
                 alert("Registration successful!");
-                $('.popup-fade').fadeIn();
             },
             error: function (xhr, status, error) {
                 console.log("Error occurred: ", error);
                 alert(xhr.responseText);
             }
         });
-    });
-
-    $('#okButton').click(function () {
-        $('.popup-fade').fadeOut();
-        window.location.href = "login.html";
     });
 
 });

@@ -34,8 +34,8 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        // This chunk of code helps to access index.html without logging in if needed
-        if(request.getRequestURI().endsWith("index.html")) {
+        // This chunk of code helps to register users without logging in
+        if(request.getRequestURI().endsWith("/user/add")) {
             filterChain.doFilter(request, response);
             return;
         }
