@@ -90,19 +90,19 @@
         </div>
         <div>
             <label for="login">Login</label>
-            <input type="text" class="form-control" id="login" aria-describedby="user login" placeholder="Enter login">
+            <input type="text" class="form-control" id="login" aria-describedby="user login" placeholder="Enter login" required>
         </div>
         <div>
             <label for="name">Your name</label>
-            <input type="text" class="form-control" id="name" aria-describedby="user name" placeholder="Enter your name">
+            <input type="text" class="form-control" id="name" aria-describedby="user name" placeholder="Enter your name" required>
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" aria-describedby="user email" placeholder="Enter your email">
+            <input type="text" class="form-control" id="email" aria-describedby="user email" placeholder="Enter your email" required>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" aria-describedby="user password" placeholder="Password">
+            <input type="password" class="form-control" id="password" aria-describedby="user password" placeholder="Password" required>
         </div>
         <div>
             <button type="button" class="btn btn-primary" id="signUpButton">Sign Up</button>
@@ -112,10 +112,17 @@
 </div>
 
 
-<div class="popup-fade">
+<div class="popup-fade" id="popupSuccess">
     <div class="popup">
         <p>Registration successful!</p>
         <button class="btn btn-success" id="okButton">Ok</button>
+    </div>
+</div>
+
+<div class="popup-fade" id="popupFailure">
+    <div class="popup">
+        <p>Something went wrong</p>
+        <button class="btn btn-warning" id="okFailButton">Try again</button>
     </div>
 </div>
 

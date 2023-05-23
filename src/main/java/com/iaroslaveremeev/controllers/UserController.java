@@ -1,8 +1,10 @@
 package com.iaroslaveremeev.controllers;
 
 import com.iaroslaveremeev.dto.ResponseResult;
+import com.iaroslaveremeev.model.Role;
 import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.service.UserService;
+import com.iaroslaveremeev.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,23 @@ public class UserController {
                                           @RequestParam("password") String password,
                                           @RequestParam("email") String email) {
         try {
+            if (name.length() == 0 || login.length() == 0
+                    || password.length() == 0 || email.length() == 0){
+                return ResponseEntity.badRequest().body("Invalid input: one or more parameters are empty");
+            }
+            Validator validator = new Validator();
+            if (!validator.isValidName(name)) {
+                return ResponseEntity.badRequest().body("Invalid name format: only letters are allowed");
+            }
+            if (!validator.isValidLogin(login)) {
+                return ResponseEntity.badRequest().body("Invalid login format: only letters and numbers are allowed");
+            }
+            if (!validator.isValidEmail(email)) {
+                return ResponseEntity.badRequest().body("Invalid email format");
+            }
+            if (!validator.isValidPassword(password)) {
+                return ResponseEntity.badRequest().body("Invalid password format: at least one letter and one number are needed");
+            }
             char[] passwordChars = password.toCharArray();
             User user = new User();
             user.setName(name);

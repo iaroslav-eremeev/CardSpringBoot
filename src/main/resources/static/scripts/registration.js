@@ -9,7 +9,7 @@ $(document).ready(function () {
         const login = $('#login').val();
         const name = $('#name').val();
         const email = $('#email').val();
-        const password = $('#password').val();
+        let password = $('#password').val();
         $.ajax({
             url: '/user/add',
             type: 'POST',
@@ -20,18 +20,26 @@ $(document).ready(function () {
                 "email": email
             },
             success: function (user) {
-                $('.popup-fade').fadeIn();
+                password = '';
+                $('#popupSuccess').fadeIn();
             },
             error: function (xhr, status, error) {
+                password = '';
                 console.log("Error occurred: ", error);
-                alert(xhr.responseText);
+                const errorMessage = xhr.responseText || "Something went wrong";
+                $('#popupFailure').find('p').text(errorMessage);
+                $('#popupFailure').fadeIn();
             }
         });
     });
 
     $('#okButton').click(function () {
-        $('.popup-fade').fadeOut();
+        $('#popupSuccess').fadeOut();
         window.location.href = "login.html";
+    })
+
+    $('#okFailButton').click(function () {
+        $('#popupFailure').fadeOut();
     })
 
 });
