@@ -1,5 +1,5 @@
 $('#goToSignUpButton').click(function () {
-        $(location).attr('href', "http://localhost:8080/CardSpringBoot/registration.html");
+    window.location.href = "templates/registration.html";
     }
 )
 
@@ -9,7 +9,7 @@ $('#loginButton').click(function () {
             method: "POST",
             data: {"login": $('#login').val(), "password": $('#password').val()},
             success: function(result) {
-                $(location).attr('href', "http://localhost:8080/CardSpringBoot/index.html");
+                window.location.href = "index.html";
             },
             error: function(xhr, status, error) {
                 alert(xhr.responseText);

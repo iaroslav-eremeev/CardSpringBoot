@@ -1,10 +1,9 @@
-$('#btn-go-login').click(function () {
-        $(location).attr('href', "http://localhost:8080/ChatServer/login.html");
+$('#goToLoginButton').click(function () {
+        $(location).attr('href', "http://localhost:8080/CardSpringBoot/login.html");
     }
 )
 
-
-$('#btn-sign-up').click(function () {
+$('#signUpButton').click(function () {
         $.ajax({
             url: 'registration',
             method: "POST",
@@ -21,7 +20,7 @@ $('#btn-sign-up').click(function () {
     }
 )
 
-$('#btn-ok').click(function () {
+$('#okButton').click(function () {
     $('.popup-fade').fadeOut();
-    $(location).attr('href', "http://localhost:8080/ChatServer/login.html");
+    window.location.href = "templates/login.html";
 })
