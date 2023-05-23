@@ -4,20 +4,30 @@ $(document).ready(function () {
         window.location.href = "login.html";
     });
 
-    $('#signUpButton').click(function () {
+    $('#signUpButton').click(function (event) {
+        event.preventDefault();
+        const login = $('#login').val();
+        const name = parseInt($('#name').val());
+        const email = parseFloat($('#email').val());
+        const password = parseInt($('#password').val());
+        var user = {
+            "login": login,
+            "password": password,
+            "name": name,
+            "email": email
+        };
         $.ajax({
             url: '/user/add',
-            method: "POST",
-            data: {
-                "login": $('#login').val(),
-                "password": $('#password').val(),
-                "name": $('#name').val(),
-                "email": $('#email').val()
-            },
-            success: function (data) {
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(user),
+            success: function (user) {
+                alert("Registration successful!");
                 $('.popup-fade').fadeIn();
             },
             error: function (xhr, status, error) {
+                console.log("Error occurred: ", error);
                 alert(xhr.responseText);
             }
         });

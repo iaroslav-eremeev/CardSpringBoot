@@ -28,25 +28,27 @@
 </head>
 <body>
 <div class="container">
-    <div>
-        <h1>Here you can ask and answer questions on coding</h1>
-        <h5>It's like StackOverFlow but for those who never heard about it</h5>
-    </div>
-    <div>
-        <label for="login">Login</label>
-        <input type="text" class="form-control" id="login" placeholder="Enter login">
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password">
-    </div>
-    <div>
-        <button type="button" class="btn btn-primary" id="loginButton">Log In</button>
-        <button type="button" class="btn btn-warning" id="goToSignUpButton">Go to Sign Up</button>
-    </div>
-    <div>
-        <button type="button" class="btn btn-info" id="adminButton">I am Admin</button>
-    </div>
+    <form id="loginForm">
+        <div>
+            <h1>Here you can ask and answer questions on coding</h1>
+            <h5>It's like StackOverFlow but for those who never heard about it</h5>
+        </div>
+        <div>
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" placeholder="Enter login">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" id="loginButton">Log In</button>
+            <button type="button" class="btn btn-warning" id="goToSignUpButton">Go to Sign Up</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-info" id="adminButton">I am Admin</button>
+        </div>
+    </form>
 </div>
 
 <script type="module" src="../scripts/login.js"></script>

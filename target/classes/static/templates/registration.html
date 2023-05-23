@@ -24,10 +24,15 @@
         .container div {
             margin-bottom: 20px;
         }
+        .container div .form-control {
+            width: 200px;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    <form id="registrationForm">
         <div>
             <h1>New user registration</h1>
             <h5>Please let us know more about yourself</h5>
@@ -46,12 +51,13 @@
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="current-password">
         </div>
         <div>
             <button type="button" class="btn btn-primary" id="signUpButton">Sign Up</button>
             <button type="button" class="btn btn-warning" id="goToLoginButton">Go to Login</button>
         </div>
+    </form>
 </div>
 
 
