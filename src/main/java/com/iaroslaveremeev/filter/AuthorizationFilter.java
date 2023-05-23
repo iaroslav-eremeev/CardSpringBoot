@@ -35,10 +35,10 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // This chunk of code helps to access index.html without logging in if needed
-        /*if(request.getRequestURI().endsWith("index.html")) {
+        if(request.getRequestURI().endsWith("index.html")) {
             filterChain.doFilter(request, response);
             return;
-        }*/
+        }
 
         Cookie[] cookies = request.getCookies();
         String value = null;
@@ -51,8 +51,8 @@ public class AuthorizationFilter implements Filter {
         }
 
         // Request/Redirect URL to Login Servlet
-        String loginURI = request.getContextPath() + "/login";
-        String registerURI = request.getContextPath() + "/registration";
+        String loginURI = request.getContextPath() + "/templates/login";
+        String registerURI = request.getContextPath() + "/templates/registration";
         // If the session was previously created
         boolean loginRequest = request.getRequestURI().contains(loginURI);
         boolean registerRequest = request.getRequestURI().contains(registerURI);

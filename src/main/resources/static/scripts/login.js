@@ -1,5 +1,5 @@
 $('#goToSignUpButton').click(function () {
-    window.location.href = "templates/registration.html";
+    window.location.href = "registration.html";
     }
 )
 

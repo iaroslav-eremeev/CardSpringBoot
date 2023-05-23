@@ -1,5 +1,5 @@
 $('#goToLoginButton').click(function () {
-    window.location.href = "templates/login.html";
+    window.location.href = "login.html";
     }
 )
 
@@ -24,5 +24,5 @@ $('#signUpButton').click(function () {
 
 $('#okButton').click(function () {
     $('.popup-fade').fadeOut();
-    window.location.href = "templates/login.html";
+    window.location.href = "login.html";
 })
