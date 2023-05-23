@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Registration</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -33,19 +34,19 @@
         </div>
         <div>
             <label for="login">Login</label>
-            <input type="text" id="login" aria-describedby="user login" placeholder="Enter login">
+            <input type="text" class="form-control" id="login" aria-describedby="user login" placeholder="Enter login">
         </div>
         <div>
             <label for="name">Your name</label>
-            <input type="text" id="name" aria-describedby="user name" placeholder="Enter your name">
+            <input type="text" class="form-control" id="name" aria-describedby="user name" placeholder="Enter your name">
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="text" id="email" aria-describedby="user email" placeholder="Enter your email">
+            <input type="text" class="form-control" id="email" aria-describedby="user email" placeholder="Enter your email">
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password">
         </div>
         <div>
             <button type="button" class="btn btn-primary" id="signUpButton">Sign Up</button>

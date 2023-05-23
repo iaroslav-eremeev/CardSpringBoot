@@ -15,6 +15,7 @@ $(document).ready(function () {
                 "email": $('#email').val()
             },
             success: function (data) {
+                alert("Registration successful!");
                 $('.popup-fade').fadeIn();
             },
             error: function (xhr, status, error) {
