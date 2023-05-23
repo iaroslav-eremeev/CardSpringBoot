@@ -1,24 +1,26 @@
 $('#goToLoginButton').click(function () {
-        $(location).attr('href', "http://localhost:8080/CardSpringBoot/login.html");
+    window.location.href = "templates/login.html";
     }
 )
 
 $('#signUpButton').click(function () {
-        $.ajax({
-            url: 'registration',
-            method: "POST",
-            data: {"login" : $('#login').val(),
-                "password" : $('#password').val(),
-                "name" : $('#name').val(),},
-            success: [function (data) {
-                $('.popup-fade').fadeIn();
-            }],
-            error: [function (xhr, status, error) {
-                alert(xhr.responseText);
-            }]
-        })
-    }
-)
+    $.ajax({
+        url: '/user/add',
+        method: "POST",
+        data: {
+            "login": $('#login').val(),
+            "password": $('#password').val(),
+            "name": $('#name').val(),
+            "email": $('#email').val()
+        },
+        success: function (data) {
+            $('.popup-fade').fadeIn();
+        },
+        error: function (xhr, status, error) {
+            alert(xhr.responseText);
+        }
+    });
+});
 
 $('#okButton').click(function () {
     $('.popup-fade').fadeOut();
