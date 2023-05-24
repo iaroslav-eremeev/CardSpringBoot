@@ -49,12 +49,23 @@
             <button type="button" class="btn btn-primary" id="loginButton">Log In</button>
             <button type="button" class="btn btn-warning" id="goToSignUpButton">Go to Sign Up</button>
         </div>
-        <div>
-            <button type="button" class="btn btn-info" id="adminButton">I am Admin</button>
-        </div>
     </form>
 </div>
 
-<script type="module" src="../scripts/login.js"></script>
+<div class="popup-fade" id="popupSuccess">
+    <div class="popup">
+        <p>Login successful!</p>
+        <button class="btn btn-success" id="okButton">Ok</button>
+    </div>
+</div>
+
+<div class="popup-fade" id="popupFailure">
+    <div class="popup">
+        <p>Something went wrong</p>
+        <button class="btn btn-warning" id="okFailButton">Try again</button>
+    </div>
+</div>
+
+<script type="module" src="scripts/login.js"></script>
 </body>
 </html>

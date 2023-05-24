@@ -1,5 +1,6 @@
 package com.iaroslaveremeev.controllers;
 
+import com.iaroslaveremeev.dto.ResponseResult;
 import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.service.UserService;
 import com.iaroslaveremeev.util.CookieMaster;
@@ -34,6 +35,7 @@ public class UserController {
         if (isValidLogin) {
             User user = this.userService.getUserByLogin(login);
             String hash = EncryptMaster.encryptUserPassword(user, password);
+            this.userService.updateUserHash(hash, user.getId());
             // Create cookies
             Cookie hashCookie = CookieMaster.createCookie("hash", hash);
             Cookie userIdCookie = CookieMaster.createCookie("userId", String.valueOf(user.getId()));
@@ -57,15 +59,9 @@ public class UserController {
                                           @RequestParam("login") String login,
                                           @RequestParam("password") String password,
                                           @RequestParam("email") String email) {
-        System.out.println("request received!");
         try {
             String validationResponse =
                     Validator.validateRegistrationFields(name, login, password, email);
-            System.out.println(name);
-            System.out.println(login);
-            System.out.println(password);
-            System.out.println(email);
-            System.out.println(validationResponse);
             if (validationResponse != null){
                 return ResponseEntity.badRequest().body(validationResponse);
             }
@@ -82,6 +78,19 @@ public class UserController {
                     .body("Failed to add user");
         }
     }
+
+    @PutMapping("update-hash")
+    public ResponseEntity<ResponseResult<String>> update (@RequestParam String hash,
+                                                          @RequestParam long userId){
+        try {
+            this.userService.updateUserHash(hash, userId);
+            return new ResponseEntity<>(new ResponseResult<>(null, hash), HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 
 }

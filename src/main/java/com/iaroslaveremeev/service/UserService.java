@@ -17,9 +17,10 @@ public interface UserService {
     User getUserByEmail(String email);
     User getUserByLogin(String login);
     User getUserByHash(String hash);
-    void updateUserLogin(String newLogin);
-    void updateUserEmail(String newEmail);
-    void updateUserName(String newName);
-    void updateUserRole(Role role);
+    void updateUserLogin(String newLogin, long userId);
+    void updateUserEmail(String newEmail, long userId);
+    void updateUserName(String newName, long userId);
+    void updateUserRole(Role role, long userId);
+    void updateUserHash(String hash, long userId);
     boolean checkLogin(String login, char[] password);
 }

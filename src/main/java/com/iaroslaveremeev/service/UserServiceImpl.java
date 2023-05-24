@@ -5,11 +5,14 @@ import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -29,6 +32,8 @@ public class UserServiceImpl implements UserService {
      * @param user The user to be added.
      * @throws IllegalArgumentException If the user is already added.
      */
+
+    @Transactional
     @Override
     public void addUser(User user) {
         try {
@@ -43,6 +48,7 @@ public class UserServiceImpl implements UserService {
      *
      * @return A list of all users.
      */
+    @Transactional(readOnly = true)
     @Override
     public List<User> get() {
         return this.userRepository.findAll();
@@ -56,6 +62,7 @@ public class UserServiceImpl implements UserService {
      * @throws IllegalArgumentException
      * If the user with the specified ID does not exist.
      */
+    @Transactional(readOnly = true)
     @Override
     public User get(long id) {
         return this.userRepository.findById(id)
@@ -70,6 +77,7 @@ public class UserServiceImpl implements UserService {
      * @throws IllegalArgumentException
      * If the user with the specified ID does not exist.
      */
+    @Transactional
     @Override
     public User delete(long id) {
         User user = this.get(id);
@@ -83,6 +91,7 @@ public class UserServiceImpl implements UserService {
      * @param name The first name of the user.
      * @return A list of users with the specified first name.
      */
+    @Transactional(readOnly = true)
     @Override
     public List<User> getUsersByName(String name) {
         return this.userRepository.getUsersByName(name);
@@ -94,6 +103,7 @@ public class UserServiceImpl implements UserService {
      * @param regDate The date of user registration.
      * @return A list of users with the specified registration date.
      */
+    @Transactional(readOnly = true)
     @Override
     public List<User> getUsersByRegDate(Date regDate) {
         return this.userRepository.getUsersByRegDate(regDate);
@@ -104,6 +114,7 @@ public class UserServiceImpl implements UserService {
      * @param role The role of the users.
      * @return A list of users with the specified role.
      */
+    @Transactional(readOnly = true)
     @Override
     public List<User> getUsersByRole(Role role) {
         return this.userRepository.getUsersByRole(role);
@@ -115,6 +126,7 @@ public class UserServiceImpl implements UserService {
      * @param email The email of the user.
      * @return The user with the specified email.
      */
+    @Transactional(readOnly = true)
     @Override
     public User getUserByEmail(String email) {
         return this.userRepository.getUserByEmail(email);
@@ -126,6 +138,7 @@ public class UserServiceImpl implements UserService {
      * @param login The login of the user.
      * @return The user with the specified login.
      */
+    @Transactional(readOnly = true)
     @Override
     public User getUserByLogin(String login) {
         return this.userRepository.getUserByLogin(login);
@@ -137,6 +150,7 @@ public class UserServiceImpl implements UserService {
      * @param hash The user hash code.
      * @return The user with the specified hash code.
      */
+    @Transactional(readOnly = true)
     @Override
     public User getUserByHash(String hash) {
         return this.userRepository.getUserByHash(hash);
@@ -147,9 +161,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param newLogin The new login value.
      */
+    @Transactional
     @Override
-    public void updateUserLogin(String newLogin) {
-        this.userRepository.updateUserLogin(newLogin);
+    public void updateUserLogin(String newLogin, long userId) {
+        this.userRepository.updateUserLogin(newLogin, userId);
     }
 
     /**
@@ -157,9 +172,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param newEmail The new email value.
      */
+    @Transactional
     @Override
-    public void updateUserEmail(String newEmail) {
-        this.userRepository.updateUserEmail(newEmail);
+    public void updateUserEmail(String newEmail, long userId) {
+        this.userRepository.updateUserEmail(newEmail, userId);
     }
 
     /**
@@ -167,9 +183,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param newName The new name value.
      */
+    @Transactional
     @Override
-    public void updateUserName(String newName) {
-        this.userRepository.updateUserName(newName);
+    public void updateUserName(String newName, long userId) {
+        this.userRepository.updateUserName(newName, userId);
     }
 
     /**
@@ -177,9 +194,21 @@ public class UserServiceImpl implements UserService {
      *
      * @param newRole The new Role value.
      */
+    @Transactional
     @Override
-    public void updateUserRole(Role newRole) {
-        this.userRepository.updateUserRole(newRole);
+    public void updateUserRole(Role newRole, long userId) {
+        this.userRepository.updateUserRole(newRole, userId);
+    }
+
+    /**
+     * Updates hash of the current user.
+     *
+     * @param hash The new hash value.
+     */
+    @Transactional
+    @Override
+    public void updateUserHash(String hash, long userId) {
+        this.userRepository.updateUserHash(hash, userId);
     }
 
     /**
@@ -189,6 +218,7 @@ public class UserServiceImpl implements UserService {
      * @param password The password of the user.
      * @return true if the login is valid and false otherwise.
      */
+    @Transactional(readOnly = true)
     @Override
     public boolean checkLogin(String login, char[] password) {
         User user = userRepository.getUserByLogin(login);

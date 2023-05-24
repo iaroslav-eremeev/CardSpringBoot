@@ -48,13 +48,14 @@ public class AuthorizationFilter implements Filter {
             }
         }
         // Request/Redirect URL to Login Servlet
-        String loginURI = request.getContextPath() + "/templates/login";
-        String registerURI = request.getContextPath() + "/templates/registration";
+        String loginURI = request.getContextPath() + "/login";
+        String registerURI = request.getContextPath() + "/registration";
         // If the session was previously created
         boolean loginRequest = request.getRequestURI().contains(loginURI);
         boolean registerRequest = request.getRequestURI().contains(registerURI);
+        boolean hashUpdateRequest = request.getRequestURI().endsWith("/update-hash");
         // If the request came from the login page or the session is not empty, we proceed further
-        if (request.getRequestURI().endsWith("js") || loginRequest || registerRequest
+        if (request.getRequestURI().endsWith("js") || loginRequest || registerRequest || hashUpdateRequest
                 || (value != null && this.userRepository.getUserByHash(value) != null)) {
             filterChain.doFilter(request, response);
             // If not redirect to login page

@@ -5,20 +5,37 @@ $(document).ready(function () {
     });
 
     $('#loginButton').click(function () {
+        const login = $('#login').val();
+        let password = $('#password').val();
             $.ajax({
                 url: '/user/login',
                 method: "POST",
-                data: {"login": $('#login').val(), "password": $('#password').val()},
+                data: {
+                    "login": login,
+                    "password": password
+                },
                 success: function(result) {
-                    alert("Login successful!");
-                    window.location.href = "index.html";
+                    console.log('Success:', result);
+                    password = '';
+                    $('#popupSuccess').fadeIn();
                 },
                 error: function(xhr, status, error) {
                     console.log("Error occurred: ", error);
-                    alert(xhr.responseText);
+                    password = '';
+                    const errorMessage = xhr.responseText || "Something went wrong";
+                    $('#popupFailure').find('p').text(errorMessage);
+                    $('#popupFailure').fadeIn();
                 }
             })
     });
 
+    $('#okButton').click(function () {
+        $('#popupSuccess').fadeOut();
+        window.location.href = "index.html";
+    });
+
+    $('#okFailButton').click(function () {
+        $('#popupFailure').fadeOut();
+    });
 });
 

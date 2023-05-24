@@ -20,16 +20,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User getUserByLogin(String login);
     User getUserByHash(String hash);
     @Modifying
-    @Query("update User user set user.login=:login")
-    void updateUserLogin(@Param("login") String login);
+    @Query("update User user set user.login=:login WHERE user.id = :userId")
+    void updateUserLogin(@Param("login") String login, @Param("userId") long userId);
     @Modifying
-    @Query("update User user set user.email=:email")
-    void updateUserEmail(@Param("email") String email);
+    @Query("update User user set user.email=:email WHERE user.id = :userId")
+    void updateUserEmail(@Param("email") String email, @Param("userId") long userId);
     @Modifying
-    @Query("update User user set user.name=:name")
-    void updateUserName(@Param("name") String name);
+    @Query("update User user set user.name=:name WHERE user.id = :userId")
+    void updateUserName(@Param("name") String name, @Param("userId") long userId);
     @Modifying
-    @Query("update User user set user.role=:role")
-    void updateUserRole(@Param("role") Role role);
+    @Query("update User user set user.role=:role WHERE user.id = :userId")
+    void updateUserRole(@Param("role") Role role, @Param("userId") long userId);
+    @Modifying
+    @Query("UPDATE User user SET user.hash = :hash WHERE user.id = :userId")
+    void updateUserHash(@Param("hash") String hash, @Param("userId") long userId);
 
 }

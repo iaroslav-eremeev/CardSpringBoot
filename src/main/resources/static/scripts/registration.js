@@ -4,8 +4,7 @@ $(document).ready(function () {
         window.location.href = "login.html";
     });
 
-    $('#signUpButton').click(function (event) {
-        event.preventDefault();
+    $('#signUpButton').click(function () {
         const login = $('#login').val();
         const name = $('#name').val();
         const email = $('#email').val();
@@ -36,10 +35,10 @@ $(document).ready(function () {
     $('#okButton').click(function () {
         $('#popupSuccess').fadeOut();
         window.location.href = "login.html";
-    })
+    });
 
     $('#okFailButton').click(function () {
         $('#popupFailure').fadeOut();
-    })
+    });
 
 });
