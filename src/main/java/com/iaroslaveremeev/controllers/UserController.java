@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> checkLogin(@RequestParam("login") String login,
-                                             @RequestParam("password") String password) {
+                                             @RequestParam("password") String password) throws NoSuchAlgorithmException {
         boolean isValidLogin = userService.checkLogin(login, password.toCharArray());
         if (isValidLogin) {
             User user = this.userService.getUserByLogin(login);
@@ -56,6 +57,7 @@ public class UserController {
                                           @RequestParam("login") String login,
                                           @RequestParam("password") String password,
                                           @RequestParam("email") String email) {
+        System.out.println("request received!");
         try {
             String validationResponse =
                     Validator.validateRegistrationFields(name, login, password, email);
