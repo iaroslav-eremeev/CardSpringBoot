@@ -47,7 +47,6 @@ public class AuthorizationFilter implements Filter {
                 }
             }
         }
-
         // Request/Redirect URL to Login Servlet
         String loginURI = request.getContextPath() + "/templates/login";
         String registerURI = request.getContextPath() + "/templates/registration";

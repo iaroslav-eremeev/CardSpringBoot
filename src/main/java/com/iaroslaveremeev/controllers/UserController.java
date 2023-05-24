@@ -59,6 +59,11 @@ public class UserController {
         try {
             String validationResponse =
                     Validator.validateRegistrationFields(name, login, password, email);
+            System.out.println(name);
+            System.out.println(login);
+            System.out.println(password);
+            System.out.println(email);
+            System.out.println(validationResponse);
             if (validationResponse != null){
                 return ResponseEntity.badRequest().body(validationResponse);
             }
