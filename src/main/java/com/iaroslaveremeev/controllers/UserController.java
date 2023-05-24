@@ -4,13 +4,23 @@ import com.iaroslaveremeev.dto.ResponseResult;
 import com.iaroslaveremeev.model.Role;
 import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.service.UserService;
+import com.iaroslaveremeev.util.CookieMaster;
 import com.iaroslaveremeev.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Objects;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RestController
 @RequestMapping("/user")
@@ -22,9 +32,31 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> checkLogin(@RequestParam("login") String login, @RequestParam("password") String password) {
+    public ResponseEntity<String> checkLogin(@RequestParam("login") String login,
+                                             @RequestParam("password") String password) {
         boolean isValidLogin = userService.checkLogin(login, password.toCharArray());
         if (isValidLogin) {
+            User user = this.userService.getUserByLogin(login);
+            // Combine salt and password
+            byte[] salt = user.getSalt();
+            byte[] saltedPassword = new byte[salt.length + password.getBytes().length];
+            System.arraycopy(salt, 0, saltedPassword, 0, salt.length);
+            System.arraycopy(password.getBytes(), 0, saltedPassword, salt.length, password.getBytes().length);
+            // Hash the password with the salt
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hash = passwordEncoder.encode(new String(saltedPassword));
+            // Create cookies
+            Cookie hashCookie = CookieMaster.createCookie("hash", hash);
+            Cookie userIdCookie = CookieMaster.createCookie("userId", String.valueOf(user.getId()));
+            Cookie roleCookie = CookieMaster.createCookie("role", user.getRole().name());
+            // Add cookies to the response
+            HttpServletResponse response = ((ServletRequestAttributes)
+                    Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+                    .getResponse();
+            assert response != null;
+            response.addCookie(hashCookie);
+            response.addCookie(userIdCookie);
+            response.addCookie(roleCookie);
             return ResponseEntity.ok("Login successful!");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid login credentials");
@@ -60,6 +92,12 @@ public class UserController {
             user.setLogin(login);
             user.setPassword(passwordChars);
             user.setEmail(email);
+            // Generate salt for better security
+            SecureRandom secureRandom = new SecureRandom();
+            byte[] salt = new byte[16];
+            secureRandom.nextBytes(salt);
+            user.setSalt(salt);
+            // Add user to database
             this.userService.addUser(user);
             // Clear the password array after use
             Arrays.fill(passwordChars, ' ');

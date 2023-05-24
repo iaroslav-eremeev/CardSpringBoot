@@ -38,14 +38,15 @@ public class User {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Category> categoryList = new ArrayList<>(); // List of question categories that user chose for themselves
-
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Answer> answerList = new ArrayList<>(); // List of answers that User provided
-
     @ToString.Exclude
     @JsonIgnore
     String hash;
+    @ToString.Exclude
+    @JsonIgnore
+    private byte[] salt;
 }
 

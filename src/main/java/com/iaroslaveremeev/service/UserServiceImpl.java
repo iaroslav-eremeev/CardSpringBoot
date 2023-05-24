@@ -191,7 +191,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Checks the login credentials of a user
-     * and performs the necessary actions if the login is valid.
      *
      * @param login    The login of the user.
      * @param password The password of the user.
@@ -201,31 +200,15 @@ public class UserServiceImpl implements UserService {
     public boolean checkLogin(String login, char[] password) {
         User user = userRepository.getUserByLogin(login);
         if (user != null && Arrays.equals(user.getPassword(), password)) {
-            // Generate hash for the user
-            String hash = DigestUtils.md5DigestAsHex((login + new String(password)).getBytes());
-            // Create cookies
-            Cookie hashCookie = new Cookie("hash", hash);
-            Cookie userIdCookie = new Cookie("userId", String.valueOf(user.getId()));
-            Cookie roleCookie = new Cookie("role", user.getRole().name());
-            // Set cookie properties
-            int cookieMaxAge = 24 * 60 * 60; // 24 hours
-            hashCookie.setMaxAge(cookieMaxAge);
-            userIdCookie.setMaxAge(cookieMaxAge);
-            roleCookie.setMaxAge(cookieMaxAge);
-            // Add cookies to the response
-            HttpServletResponse response = ((ServletRequestAttributes)
-                    Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
-                    .getResponse();
-            assert response != null;
-            response.addCookie(hashCookie);
-            response.addCookie(userIdCookie);
-            response.addCookie(roleCookie);
             // Clear the password array to remove sensitive information
             Arrays.fill(password, ' ');
-            return true; // Login is valid
+            return true;
         }
-        // Clear the password array even if the login is invalid
-        Arrays.fill(password, ' ');
-        return false; // Login is invalid
+        else {
+            // Clear the password array even if the login is invalid
+            Arrays.fill(password, ' ');
+            return false; // Login is invalid
+        }
     }
+
 }
