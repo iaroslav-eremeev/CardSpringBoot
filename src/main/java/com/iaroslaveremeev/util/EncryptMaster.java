@@ -13,6 +13,6 @@ public class EncryptMaster {
                 salt.length, password.getBytes().length);
         // Hash the password with the salt
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(new String(saltedPassword));;
+        return passwordEncoder.encode(new String(saltedPassword));
     }
 }

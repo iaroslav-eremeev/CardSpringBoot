@@ -21,17 +21,13 @@ public class Answer {
     private long id;
     @NonNull
     private String answerText; // Answer text
-    @NonNull
     private int rating = 0; // Answer rating
-    @NonNull
     private boolean verified = false; // Marked as verified by a Moderator or an Admin
-
     @ManyToOne
     @JsonIgnore
     @NonNull
     @JoinColumn(name = "card_id", nullable = false)
     private Card card; // Card to that the Answer belongs
-
     @ManyToOne
     @JsonIgnore
     @NonNull

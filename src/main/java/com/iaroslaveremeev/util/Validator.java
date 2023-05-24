@@ -1,8 +1,5 @@
 package com.iaroslaveremeev.util;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.regex.Pattern;
 
 public class Validator {

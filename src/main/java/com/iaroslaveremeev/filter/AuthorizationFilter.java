@@ -1,7 +1,5 @@
 package com.iaroslaveremeev.filter;
 
-import com.iaroslaveremeev.model.User;
-import com.iaroslaveremeev.repository.AnswerRepository;
 import com.iaroslaveremeev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
