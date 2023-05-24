@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,5 +49,12 @@ public class User {
     @ToString.Exclude
     @JsonIgnore
     private byte[] salt;
+
+    public void generateSalt(){
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] salt = new byte[16];
+        secureRandom.nextBytes(salt);
+        this.setSalt(salt);
+    }
 }
 
