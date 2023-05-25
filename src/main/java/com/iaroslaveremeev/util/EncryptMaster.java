@@ -13,11 +13,9 @@ public class EncryptMaster {
         System.arraycopy(salt, 0, saltedPassword, 0, salt.length);
         System.arraycopy(password.getBytes(), 0, saltedPassword,
                 salt.length, password.getBytes().length);
-        // Hash the password with the salt
         // Hash the salted password using SHA-256
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashedBytes = digest.digest(saltedPassword);
-
         // Convert the hashed bytes to a hexadecimal string
         StringBuilder hexString = new StringBuilder();
         for (byte b : hashedBytes) {

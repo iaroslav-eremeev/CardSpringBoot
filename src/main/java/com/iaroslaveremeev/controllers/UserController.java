@@ -30,21 +30,20 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> checkLogin(@RequestParam("login") String login,
-                                             @RequestParam("password") String password) throws NoSuchAlgorithmException {
+                                             @RequestParam("password") String password,
+                                             HttpServletResponse response) throws NoSuchAlgorithmException {
         boolean isValidLogin = userService.checkLogin(login, password.toCharArray());
         if (isValidLogin) {
             User user = this.userService.getUserByLogin(login);
             String hash = EncryptMaster.encryptUserPassword(user, password);
-            this.userService.updateUserHash(hash, user.getId());
+            user.setHash(hash);
+            this.userService.update(user);
+            /*this.userService.updateUserHash(hash, user.getId());*/
             // Create cookies
             Cookie hashCookie = CookieMaster.createCookie("hash", hash);
             Cookie userIdCookie = CookieMaster.createCookie("userId", String.valueOf(user.getId()));
             Cookie roleCookie = CookieMaster.createCookie("role", user.getRole().name());
             // Add cookies to the response
-            HttpServletResponse response = ((ServletRequestAttributes)
-                    Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
-                    .getResponse();
-            assert response != null;
             response.addCookie(hashCookie);
             response.addCookie(userIdCookie);
             response.addCookie(roleCookie);
@@ -76,17 +75,6 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add user");
-        }
-    }
-
-    @PutMapping("update-hash")
-    public ResponseEntity<ResponseResult<String>> update (@RequestParam String hash,
-                                                          @RequestParam long userId){
-        try {
-            this.userService.updateUserHash(hash, userId);
-            return new ResponseEntity<>(new ResponseResult<>(null, hash), HttpStatus.OK);
-        } catch (IllegalArgumentException e){
-            return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
         }
     }
 

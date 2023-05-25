@@ -157,58 +157,25 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Updates the login of the current user.
+     * Updates current user.
      *
-     * @param newLogin The new login value.
+     * @param user The user to be updated
      */
     @Transactional
     @Override
-    public void updateUserLogin(String newLogin, long userId) {
-        this.userRepository.updateUserLogin(newLogin, userId);
-    }
-
-    /**
-     * Updates the email of the current user.
-     *
-     * @param newEmail The new email value.
-     */
-    @Transactional
-    @Override
-    public void updateUserEmail(String newEmail, long userId) {
-        this.userRepository.updateUserEmail(newEmail, userId);
-    }
-
-    /**
-     * Updates the first name of the current user.
-     *
-     * @param newName The new name value.
-     */
-    @Transactional
-    @Override
-    public void updateUserName(String newName, long userId) {
-        this.userRepository.updateUserName(newName, userId);
-    }
-
-    /**
-     * Updates the role (SIMPLE, MODERATOR or ADMIN) of the current user.
-     *
-     * @param newRole The new Role value.
-     */
-    @Transactional
-    @Override
-    public void updateUserRole(Role newRole, long userId) {
-        this.userRepository.updateUserRole(newRole, userId);
-    }
-
-    /**
-     * Updates hash of the current user.
-     *
-     * @param hash The new hash value.
-     */
-    @Transactional
-    @Override
-    public void updateUserHash(String hash, long userId) {
-        this.userRepository.updateUserHash(hash, userId);
+    public void update(User user){
+        User databaseUser = this.get(user.getId());
+        databaseUser.setLogin(user.getLogin());
+        databaseUser.setPassword(user.getPassword());
+        databaseUser.setName(user.getName());
+        databaseUser.setEmail(user.getEmail());
+        databaseUser.setRole(user.getRole());
+        databaseUser.setHash(user.getHash());
+        try {
+            this.userRepository.save(databaseUser);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("User update unsuccessful! Check parameters");
+        }
     }
 
     /**
