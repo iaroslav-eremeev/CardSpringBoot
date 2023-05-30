@@ -1,6 +1,5 @@
 package com.iaroslaveremeev.controllers;
 
-import com.iaroslaveremeev.dto.ResponseResult;
 import com.iaroslaveremeev.model.User;
 import com.iaroslaveremeev.service.UserService;
 import com.iaroslaveremeev.util.CookieMaster;
@@ -10,14 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/user")
@@ -67,7 +63,6 @@ public class UserController {
             char[] passwordChars = password.toCharArray();
             User user = new User(login, passwordChars, name, email);
             user.generateSalt();
-            // Add user to database
             this.userService.addUser(user);
             // Clear the password array after use
             Arrays.fill(passwordChars, ' ');
@@ -77,8 +72,4 @@ public class UserController {
                     .body("Failed to add user");
         }
     }
-
-
-
-
 }
